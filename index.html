@@ -52,10 +52,12 @@ body.mo .h{background:var(--ink)}
 /* hero */
 .hero{position:relative;min-height:100svh;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate}
 /* Seamless edge-to-edge 2x2 image background.
-   Root cause of the gap: the previous CSS grid + percentage-height figures could leave one
-   row/cell shorter than its track. Each quadrant is now absolutely positioned directly from
-   the edges of the hero (no grid, no percentage heights), so each one is pinned to its
-   corner and the four meet at the exact centre with a 1px overlap to avoid sub-pixel seams. */
+   The four panels are absolutely pinned to the corners of the hero and meet at the centre
+   with a 1px overlap, so the layout itself leaves no gaps.
+   Root cause of the black stripe under the kitchen photo: the stripe is NOT a layout gap. The
+   first source image (18.58.47) has a black band baked into its bottom edge, which object-fit
+   showed at the bottom of panel 1. Panel 1's image is therefore drawn taller than its panel,
+   anchored to the top, so that the band is cropped away by the panel's overflow:hidden. */
 .hm{position:absolute;top:0;right:0;bottom:0;left:0;margin:0;padding:0;border:0;overflow:hidden;background:#17191b;z-index:0}
 .hm .bgp{position:absolute;display:block;margin:0;padding:0;border:0;overflow:hidden;background:#17191b;line-height:0;min-width:0;min-height:0}
 .hm .bgp:nth-child(1){top:0;left:0;right:calc(50% - 1px);bottom:calc(50% - 1px)}
@@ -63,7 +65,7 @@ body.mo .h{background:var(--ink)}
 .hm .bgp:nth-child(3){top:50%;left:0;right:calc(50% - 1px);bottom:0}
 .hm .bgp:nth-child(4){top:50%;left:50%;right:0;bottom:0}
 .hm .bgp img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;max-width:none;margin:0;padding:0;border:0;object-fit:cover;object-position:center;display:block}
-.hm .bgp:nth-child(1) img{object-position:center 60%}
+.hm .bgp:nth-child(1) img{bottom:auto;height:126%;object-position:center top}
 /* one consistent dark overlay over the whole composition */
 .hm::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(180deg,rgba(14,15,16,.58),rgba(14,15,16,.66));pointer-events:none;z-index:2}
 .fr{position:absolute;inset:clamp(76px,9vw,100px) var(--p) 24px;border:1px solid rgba(255,255,255,.28);pointer-events:none;z-index:3}
@@ -408,10 +410,12 @@ bg.onclick=function(){menu(!B.classList.contains("mo"))};
 $("menu").onclick=function(e){if(e.target.tagName==="A")menu(false)};
 addEventListener("resize",function(){if(innerWidth>860)menu(false)});
 /* gallery data */
-var P="WhatsApp Image 2026-10-15 at ",files=[];
+var P="WhatsApp Image 2026-10-15 at ",P2="WhatsApp Image 2026-10-21 at ",files=[];
 function grp(t,n,sp){files.push(P+t+".jpeg");for(var i=1;i<=n;i++)files.push(P+t+(sp?" ":"")+"("+i+").jpeg")}
+function grp2(t,n){files.push(P2+t+".jpeg");for(var i=1;i<=n;i++)files.push(P2+t+" ("+i+").jpeg")}
 files.push(P+"23.40.28.jpeg",P+"23.40.28 (1).jpeg",P+"23.40.28 (2).jpeg",P+"23.40.59.jpeg");
 grp("23.33.31",18);grp("23.33.32",1);grp("23.35.23",9);grp("23.35.24",10);grp("23.35.25",17);files.push(P+"23.35.26.jpeg");grp("23.35.44",4,1);
+grp2("20.10.32",24);grp2("20.14.13",13);
 function url(f){return encodeURIComponent(f).replace(/\(/g,"%28").replace(/\)/g,"%29")}
 var gg=$("gg"),gi=0,gn=0,BATCH=15,gc=$("gc"),gm=$("gmore");
 function more(){var t=files.slice(gi,gi+BATCH);gi+=t.length;
