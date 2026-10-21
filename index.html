@@ -51,15 +51,17 @@ body.mo .h{background:var(--ink)}
 .m a{display:block;font-size:clamp(1.9rem,9vw,3rem);font-weight:600;letter-spacing:-.03em;padding:14px 0}.m a::after{display:none}}
 /* hero */
 .hero{position:relative;min-height:100svh;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hm{position:absolute;inset:0;display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:1fr 1fr;gap:3px;background:var(--ink)}
+.hm{position:absolute;inset:0;display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:0;background:var(--ink)}
 .hm .bgp{position:relative;overflow:hidden;min-width:0;min-height:0;margin:0}
 .hm .bgp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hm .bgp::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(244,242,238,.16);pointer-events:none;z-index:1}
 .hm .b1{grid-column:1;grid-row:1/3}
 .hm .b1 img{object-position:center 55%}
-.hm .b2{grid-column:2;grid-row:1}
-.hm .b3{grid-column:2;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--ink)}
-.hm .b3 .bgp{position:relative}
-.hm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,15,16,.8),rgba(14,15,16,.58) 35%,rgba(14,15,16,.7) 65%,rgba(14,15,16,.95));pointer-events:none}
+.hm .b2{grid-column:2/4;grid-row:1}
+.hm .b3{display:contents}
+.hm .b3 .bgp:first-child{grid-column:2;grid-row:2}
+.hm .b3 .bgp:last-child{grid-column:3;grid-row:2}
+.hm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,15,16,.8),rgba(14,15,16,.58) 35%,rgba(14,15,16,.7) 65%,rgba(14,15,16,.95));pointer-events:none;z-index:2}
 .fr{position:absolute;inset:clamp(76px,9vw,100px) var(--p) 24px;border:1px solid rgba(255,255,255,.28);pointer-events:none}
 .fr::before,.fr::after{content:"";position:absolute;width:26px;height:26px;border:2px solid var(--acc)}
 .fr::before{left:-1px;top:-1px;border-width:2px 0 0 2px}.fr::after{right:-1px;bottom:-1px;border-width:0 2px 2px 0}
@@ -78,10 +80,11 @@ body.mo .h{background:var(--ink)}
 .ex i{font-style:normal;transition:transform .5s var(--e)}.ex:hover{background:#fff;color:var(--ink)}.ex:hover i{transform:translateY(4px)}
 @media(max-width:900px){
 .hero h1{font-size:clamp(2.5rem,12vw,5.6rem)}
-.hm{grid-template-columns:1fr 1fr;grid-template-rows:1.5fr 1fr}
-.hm .b1{grid-column:1/3;grid-row:1}
+.hm{grid-template-columns:1fr 1fr 1fr;grid-template-rows:1.5fr 1fr}
+.hm .b1{grid-column:1/4;grid-row:1}
 .hm .b2{grid-column:1;grid-row:2}
-.hm .b3{grid-column:2;grid-row:2;grid-template-columns:1fr;grid-template-rows:1fr 1fr}}
+.hm .b3 .bgp:first-child{grid-column:2;grid-row:2}
+.hm .b3 .bgp:last-child{grid-column:3;grid-row:2}}
 @media(prefers-reduced-motion:no-preference){
 .hm{animation:mi 1.7s var(--e) both}@keyframes mi{from{clip-path:inset(10% 6%)}to{clip-path:inset(0)}}
 .ln span{transform:translateY(110%);animation:up 1.1s var(--e) forwards}.ln:nth-child(2) span{animation-delay:.15s}.ln span{animation-delay:.5s}.ln:nth-child(2) span{animation-delay:.65s}
